@@ -1,0 +1,20 @@
+---
+interface Props {
+  sketchPath: any;
+}
+const {sketchPath} = Astro.props;
+---
+
+<div class="w-full h-full" data-sketch={sketchPath} id="p5-container"></div>
+
+<script>
+  import p5 from "p5";
+  const container = document.getElementById("p5-container");
+    if (container) {
+    const sketchPath = container.dataset.sketch!;
+    import(/* @vite-ignore */ sketchPath).then((mod) => {
+      const sketch = mod.default;
+      new p5(sketch, container);
+    });
+  }
+</script>
