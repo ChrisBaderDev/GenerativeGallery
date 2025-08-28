@@ -1,11 +1,133 @@
 ---
+import ImageTextLink from "@components/common/ImageTextLink.astro";
 import Baselayout from "../layouts/Baselayout.astro";
-import P5Sketch from "@components/sketches/P5Sketch.astro"
+import GenerativeGarden from "../assets/images/generative-garden.png";
+import StoneGrowth from "@assets/images/stone-growth.png";
+import EyeIcon from "../../public/icons/eye_icon.svg";
 ---
 
 <Baselayout title="P5Sketch">
-
-  <div class="w-screen h-screen">
-    <P5Sketch sketchPath={"../../sketches/P5/testsketch"}/>
-  </div>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero flex flex-col items-start">
+      <h1 class="uppercase">Generative Gallery</h1>
+      <div class="flex flex-row justify-between w-full">
+        <p class="w-1/2">
+          A <strong>collection</strong> of creative coding projects.
+        </p>
+        <div class="w-1/2 text-end">
+          <!-- Maybe make these to filter links later on -->
+          <p>P5.js</p>
+          <p>Three.js</p>
+          <p>Openframeworks</p>
+        </div>
+      </div>
+    </section>
+    <section class="home-gallery">
+      <ImageTextLink
+        class={"large"}
+        image={GenerativeGarden}
+        title="Generative Garden"
+        alt="an Image of a generative garden"
+        excerpt="This is a generative garden, feel free to enter."
+        link="/"
+      />
+      <ImageTextLink
+        class={"top"}
+        image={StoneGrowth}
+        title="Generative Garden"
+        alt="an Image of a generative garden"
+        excerpt="This is a generative garden, feel free to enter."
+        link="/"
+      />
+      <ImageTextLink
+        class={"medium"}
+        image={GenerativeGarden}
+        title="Generative Garden"
+        alt="an Image of a generative garden"
+        excerpt="This is a generative garden, feel free to enter."
+        link="/"
+      />
+      <ImageTextLink
+        class={"small"}
+        image={GenerativeGarden}
+        title="Generative Garden"
+        alt="an Image of a generative garden"
+        excerpt="This is a generative garden, feel free to enter."
+        link="/"
+      />
+      <a
+        class="text-4xl text border-1 w-full h-full flex justify-center items-center"
+        href=""><p>See all Projects</p> <EyeIcon class="w-15 hover:w-20 ml-5" /></a
+      >
+    </section>
+  </main>
 </Baselayout>
+
+<style>
+  h1 {
+    font-size: clamp(2rem, 16vw, 8rem);
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 2rem;
+    font-weight: 300;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  .hero {
+    height: 20vh;
+  }
+</style>
+
+<style is:global>
+  .home-gallery {
+    height: 70vh;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, minmax(0, 1fr)); /* fix */
+    grid-template-areas:
+      "large large top top"
+      "large large top top"
+      "large large top top"
+      "large large medium small"
+      "large large medium small"
+      "large large medium text";
+  }
+
+  .home-gallery > * {
+    min-width: 0;
+    min-height: 0; /* allow shrink */
+  }
+
+  .home-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* crop nicely */
+  }
+
+  .large {
+    grid-area: large;
+  }
+
+  .top {
+    grid-area: top;
+  }
+
+  .medium {
+    grid-area: medium;
+  }
+
+  .small {
+    grid-area: small;
+  }
+
+  .text {
+    grid-area: text;
+  }
+</style>
