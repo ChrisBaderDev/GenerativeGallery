@@ -9,9 +9,7 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
 <Baselayout title="P5Sketch">
   <main>
     <!-- Hero Section -->
-    <section
-      class="hero flex flex-col items-start lg:h-auto max-lg:h-[calc(40vh-var(--header-height))] max-lg:justify-between"
-    >
+    <section class="hero flex flex-col items-start lg:h-auto max-lg:h-[calc(40vh-var(--header-height))] max-lg:justify-between">
       <h1 class="uppercase">Generative Gallery</h1>
       <div class="flex flex-row justify-between w-full">
         <p class="w-1/2">
@@ -63,7 +61,7 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
       <a
         class="text-4xl text border-1 w-full h-full flex justify-center items-center"
         href=""
-        ><p>See all Projects</p> <EyeIcon class="w-15 hover:w-20 ml-5" /></a
+        ><p>See all Projects</p> <EyeIcon class="w-15 hover:w-20 ml-5 h-10" /></a
       >
     </section>
   </main>
@@ -77,6 +75,7 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
   }
 
   p {
+
     font-weight: 300;
   }
 
@@ -99,14 +98,16 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
       "large large medium text";
   }
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1024px) {
     .home-gallery {
+      gap: 0.5rem;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(5, minmax(0, 1fr));
       grid-template-areas:
         "large large"
-        "top medium"
-        "small small"
+        "large large"
+        "medium medium"
+        "top small"
         "text text";
     }
   }
