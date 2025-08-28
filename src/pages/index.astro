@@ -9,7 +9,9 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
 <Baselayout title="P5Sketch">
   <main>
     <!-- Hero Section -->
-    <section class="hero flex flex-col items-start">
+    <section
+      class="hero flex flex-col items-start lg:h-auto max-lg:h-[calc(40vh-var(--header-height))] max-lg:justify-between"
+    >
       <h1 class="uppercase">Generative Gallery</h1>
       <div class="flex flex-row justify-between w-full">
         <p class="w-1/2">
@@ -23,6 +25,8 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
         </div>
       </div>
     </section>
+    <div class="w-screen border-t-1"></div>
+    <!-- Image gallery -->
     <section class="home-gallery">
       <ImageTextLink
         class={"large"}
@@ -58,7 +62,8 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
       />
       <a
         class="text-4xl text border-1 w-full h-full flex justify-center items-center"
-        href=""><p>See all Projects</p> <EyeIcon class="w-15 hover:w-20 ml-5" /></a
+        href=""
+        ><p>See all Projects</p> <EyeIcon class="w-15 hover:w-20 ml-5" /></a
       >
     </section>
   </main>
@@ -66,12 +71,12 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
 
 <style>
   h1 {
-    font-size: clamp(2rem, 16vw, 8rem);
+    white-space: nowrap;
+    font-size: clamp(1rem, 7.5vw, 8rem);
     font-weight: bold;
   }
 
   p {
-    font-size: 2rem;
     font-weight: 300;
   }
 
@@ -79,12 +84,6 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
     font-weight: 700;
   }
 
-  .hero {
-    height: 20vh;
-  }
-</style>
-
-<style is:global>
   .home-gallery {
     height: 70vh;
     display: grid;
@@ -100,6 +99,18 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
       "large large medium text";
   }
 
+  @media (max-width: 1280px) {
+    .home-gallery {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      grid-template-areas:
+        "large large"
+        "top medium"
+        "small small"
+        "text text";
+    }
+  }
+
   .home-gallery > * {
     min-width: 0;
     min-height: 0; /* allow shrink */
@@ -110,7 +121,9 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
     height: 100%;
     object-fit: cover; /* crop nicely */
   }
+</style>
 
+<style is:global>
   .large {
     grid-area: large;
   }
