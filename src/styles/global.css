@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --col-bg: #f3f2f1;
+    --col-text: #111;
+    --header-height: 5vh;
+  }
+
+  html,
+  body {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  body {
+    font-family: "Montserrat", sans-serif;
+    background-color: var(--col-bg);
+  }
+
+  /* Global Font Stylings*/
+  h1 {
+    font-size: clamp(2rem, 2vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 1.75vw, 2.5rem);
+  }
+
+  p {
+    font-size: clamp(1.75rem, 1.75vw, 2.5rem);
+  }
+
+  a {
+    font-size: 1.25rem;
+  }
+
+  section {
+    margin: 1.25rem;
+  }
+}
