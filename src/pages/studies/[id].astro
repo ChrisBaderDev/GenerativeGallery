@@ -1,0 +1,67 @@
+---
+import "../../styles/global.css";
+import "../../styles/markdown.css";
+import Baselayout from "src/layouts/Baselayout.astro";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import P5Sketch from "@components/sketches/P5Sketch.astro";
+import ThreeJSSketch from "@components/sketches/ThreeJSSketch.astro";
+export const getStaticPaths = async () => {
+  const studies = await getCollection("studies");
+  return studies.map((study) => ({
+    params: { id: study.id },
+    props: { study },
+  }));
+};
+
+const { study } = Astro.props;
+const { Content, headings } = await render(study);
+---
+
+<Baselayout title={study.data.title}>
+  <main>
+    <div class="flex flex-col w-full items-center">
+      <!-- Show P5.js Sketch -->
+      {
+        study.data.technology === "p5js" && (
+          <div class="w-full h-[80vh]">
+            <P5Sketch sketchPath={"../../sketches/P5/testsketch.js"} />
+          </div>
+        )
+      }
+      <!-- Show Three.js Sketch -->
+      {
+        study.data.technology === "threejs" && (
+          <div class="w-full h-[80vh]">
+            <ThreeJSSketch />
+          </div>
+        )
+      }
+      <div class="flex flex-col w-full max-xl:px-5 lg:w-1/2 mt-10">
+        <h1 class="font-bold py-3">{study.data.title}</h1>
+        <h2 class="font-light pb-5">{study.data.excerpt}</h2>
+        <!-- Blog Entry Menu -->
+        <menu class="menu flex flex-col gap-2 my-10">
+          <h2 class="font-bold">Navigation</h2>
+          <ul class="list-decimal mb-20 px-10">
+            {
+              headings
+                .filter((h) => h.depth === 2)
+                .map((h) => (
+                  <li>
+                    <a href={`#${h.slug}`} class="text-lg hover:underline">
+                      {h.text}
+                    </a>
+                  </li>
+                ))
+            }
+          </ul>
+        </menu>
+        <!-- Blog Entry -->
+        <article class="content">
+          <Content />
+        </article>
+      </div>
+    </div>
+  </main>
+</Baselayout>
