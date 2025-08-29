@@ -1,0 +1,70 @@
+---
+// src/pages/gallery/[tech].astro
+import ImageTextLink from "@components/common/ImageTextLink.astro";
+import { getCollection } from "astro:content";
+import Baselayout from "src/layouts/Baselayout.astro";
+
+export async function getStaticPaths() {
+  return [
+    { params: { tech: "all" } },
+    { params: { tech: "p5js" } },
+    { params: { tech: "threejs" } },
+  ];
+}
+
+const { tech } = Astro.params;
+const allStudies = await getCollection("studies");
+
+const gallery =
+  tech === "all"
+    ? allStudies
+    : allStudies.filter(
+        (s) => s.data.technology.toLowerCase() === tech.toLowerCase()
+      );
+---
+
+<Baselayout title="Generative Gallery">
+  <main>
+    <!-- Filter Bar -->
+    <div
+      class="w-full flex flex-col md:flex-row items-center md:justify-between py-10 px-5 text-center gap-5"
+    >
+      <div>
+        <a
+          class="border-1 py-2 px-4 rounded-full hover:bg-[var(--col-text)] hover:text-[var(--col-bg)] transition duration-500"
+          href="/gallery/all">All</a
+        >
+        <a
+          class="border-1 py-2 px-4 rounded-full hover:bg-[var(--col-text)] hover:text-[var(--col-bg)] transition duration-500"
+          href="/gallery/p5js">P5.js</a
+        >
+        <a
+          class="border-1 py-2 px-4 rounded-full hover:bg-[var(--col-text)] hover:text-[var(--col-bg)] transition duration-500"
+          href="/gallery/threejs">Three.js</a
+        >
+      </div>
+      <div class="max-md:mt-5">
+        <a
+          class="border-1 py-2 px-4 rounded-full hover:bg-[var(--col-text)] hover:text-[var(--col-bg)] transition duration-500"
+          href="/"
+          >Back</a
+        >
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 px-5">
+      {
+        gallery.map((study) => (
+          <ImageTextLink
+            title={study.data.title}
+            excerpt={study.data.excerpt}
+            image={study.data.thumbnail.src}
+            alt={study.data.thumbnail.alt}
+            link={`/studies/${study.id}`}
+          />
+        ))
+      }
+    </div>
+  </main>
+</Baselayout>

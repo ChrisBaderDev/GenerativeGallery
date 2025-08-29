@@ -9,7 +9,9 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
 <Baselayout title="P5Sketch">
   <main>
     <!-- Hero Section -->
-    <section class="hero flex flex-col items-start lg:h-auto max-lg:h-[calc(40vh-var(--header-height))] max-lg:justify-between">
+    <section
+      class="hero flex flex-col items-start lg:h-auto max-lg:h-[calc(40vh-var(--header-height))] max-lg:justify-between"
+    >
       <h1 class="uppercase">Generative Gallery</h1>
       <div class="flex flex-row justify-between w-full">
         <p class="w-1/2">
@@ -60,8 +62,9 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
       />
       <a
         class="text-4xl text border-1 w-full h-full flex justify-center items-center"
-        href=""
-        ><p>See all Projects</p> <EyeIcon class="w-15 hover:w-20 ml-5 h-10" /></a
+        href="/gallery/all"
+        ><p>See all Projects</p>
+        <EyeIcon class="w-15 hover:w-20 ml-5 h-10" /></a
       >
     </section>
   </main>
@@ -75,7 +78,6 @@ import EyeIcon from "../../public/icons/eye_icon.svg";
   }
 
   p {
-
     font-weight: 300;
   }
 
