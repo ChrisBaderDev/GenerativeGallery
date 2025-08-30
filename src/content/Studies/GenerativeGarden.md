@@ -1,15 +1,16 @@
 ---
-title: "My First Generative Study"
-excerpt: "A small exploration of particle systems using p5.js noise fields."
+title: "Generative Garden"
+excerpt: "An assortment of generative plants using the Space Colonization Algorithm"
 date: 2025-08-29
 status: Published
-technology: threejs
+technology: p5js
 thumbnail:
   src: ../../assets/images/generative-garden.png
-  alt: "Screenshot of particle system study"
+  alt: "Screenshot of an image of the Generative Garden"
+sketchPath: "../../sketches/P5/GenerativeGarden/GenerativeGarden.ts"
 category: Generative Art
-seoTitle: "Particle System Study – Generative Gallery"
-seoDescription: "An experimental study in generative art using noise fields in p5.js. Part of my ongoing creative coding explorations."
+seoTitle: "Generative Plant Garden – Generative Gallery"
+seoDescription: "An experimental study on how different plant growth can be simulated using the space colonization algorithm."
 ---
 
 ## Overview

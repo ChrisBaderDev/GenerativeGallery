@@ -27,6 +27,7 @@ const studies = defineCollection({
         src: image(),
         alt: z.string(),
       }),
+      sketchPath: z.string(),
       category: z
         .enum([
           "Generative Art",
