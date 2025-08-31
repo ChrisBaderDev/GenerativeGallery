@@ -25,7 +25,7 @@ const { Content, headings } = await render(study);
       {
         study.data.technology === "p5js" && (
           <div class="w-full h-[80vh]">
-            <P5Sketch sketchPath={"../../sketches/P5/testsketch.js"} />
+            <P5Sketch sketchPath={study.data.sketchPath} />
           </div>
         )
       }

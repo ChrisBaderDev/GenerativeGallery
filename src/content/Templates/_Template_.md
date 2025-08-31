@@ -3,10 +3,11 @@ title: "My First Generative Study"
 excerpt: "A small exploration of particle systems using p5.js noise fields."
 date: 2025-08-29
 status: Published
-technology: P5.js
+technology: p5js
 thumbnail:
   src: ../../assets/images/generative-garden.png
   alt: "Screenshot of particle system study"
+sketchPath: "../../sketches/P5/testsketch.js"
 category: Generative Art
 seoTitle: "Particle System Study – Generative Gallery"
 seoDescription: "An experimental study in generative art using noise fields in p5.js. Part of my ongoing creative coding explorations."
