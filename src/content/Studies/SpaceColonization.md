@@ -1,5 +1,5 @@
 ---
-title: "Generative Garden"
+title: "Space Colonization"
 excerpt: "An assortment of generative plants using the Space Colonization Algorithm"
 date: 2025-08-29
 status: Published
@@ -7,7 +7,7 @@ technology: p5js
 thumbnail:
   src: ../../assets/images/generative-garden.png
   alt: "Screenshot of an image of the Generative Garden"
-sketchPath: "../../sketches/P5/GenerativeGarden/GenerativeGarden.ts"
+sketchPath: "../../sketches/P5/SpaceColonization/SpaceColonization.ts"
 category: Generative Art
 seoTitle: "Generative Plant Garden – Generative Gallery"
 seoDescription: "An experimental study on how different plant growth can be simulated using the space colonization algorithm."

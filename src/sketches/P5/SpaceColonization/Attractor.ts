@@ -1,6 +1,11 @@
 import p5 from "p5";
 
-class Attractor {
+export class Attractor {
+  /**
+   * P5 Instance of the current canvas.
+   */
+  p: p5;
+
   /**
    * The fixed position of the Attractor in space.
    * Vector can be 2D or 3D depending on the implementation.
@@ -26,10 +31,12 @@ class Attractor {
   active: boolean = true;
 
   constructor(
+    p: p5,
     position: p5.Vector,
     influenceRadius: number,
     killRadius: number
   ) {
+    this.p = p;
     this.position = position;
     this.influenceRadius = influenceRadius;
     this.killRadius = killRadius;
@@ -43,5 +50,15 @@ class Attractor {
    */
   distanceTo(nodePosition: p5.Vector) {
     return p5.Vector.dist(this.position, nodePosition);
+  }
+
+  /**
+   * Calculates the normalized direction vector from the given nodePosition
+   * to the position of this attractor.
+   * @param nodePosition positon of the node to calculate the direction from
+   * @returns the direction from this.postion to the NodePosition
+   */
+  directionTo(nodePosition: p5.Vector) {
+    return p5.Vector.sub(nodePosition, this.position).normalize();
   }
 }
