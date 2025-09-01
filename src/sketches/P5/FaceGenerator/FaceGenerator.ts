@@ -8,13 +8,14 @@ export default function (p: p5) {
   let face: Face
   let noiseSeed = 0;
   let randomSeed = 0;
+  let volatility = 2;
 
   let faceForm: Form;
   // called once at startup
   p.setup = () => {
     parent = document.getElementById("p5-container")!;
     p.createCanvas(parent!.clientWidth, parent!.clientHeight);
-    face = new Face(p, new p5.Vector(p.width / 2, p.height / 2), 200, 400);
+    face = new Face(p, volatility, new p5.Vector(p.width / 2, p.height / 2), 200 , 400);
     p.frameCount = 60;
     p.noiseSeed(noiseSeed);
   };
@@ -23,10 +24,9 @@ export default function (p: p5) {
   p.draw = () => {
     p.background(220);
     face.draw();
-
-    if (p.frameCount % 60 === 0) {
-      noiseSeed++;
-      p.noiseSeed(noiseSeed);
+    if(p.frameCount % 60 === 0) {
+      updateRandomnessState();
+      face = new Face(p, volatility, new p5.Vector(p.width / 2, p.height / 2), 200 , 400);
     }
   };
 
@@ -34,4 +34,15 @@ export default function (p: p5) {
   p.windowResized = () => {
     p.resizeCanvas(parent!.clientWidth, parent!.clientHeight);
   };
+
+
+  /**
+   *  UTILITY FUNCTIONS
+   */
+  function updateRandomnessState() {
+      noiseSeed++;
+      p.noiseSeed(noiseSeed);
+      randomSeed++;
+      p.randomSeed(randomSeed);
+  }
 }
