@@ -1,20 +1,45 @@
 import p5 from "p5";
 import type { FaceComponent } from "./FaceComponent";
 
-export class Form implements FaceComponent{
+export class Eye implements FaceComponent{
   p: p5;
   center: p5.Vector;
+  pupilOffset: p5.Vector;
+  pupilDiameter: number;
   width: number;
   height: number;
 
-  constructor(p: p5, center: p5.Vector, width: number, height: number) {
+  constructor(
+    p: p5,
+    center: p5.Vector,
+    pupilOffset: p5.Vector,
+    pupilDiameter: number,
+    width: number,
+    height: number
+  ) {
     this.p = p;
     this.center = center;
+    this.pupilOffset = pupilOffset;
+    this.pupilDiameter = pupilDiameter;
     this.width = width;
     this.height = height;
   }
 
   draw() {
+  
+    this.drawOutline();
+    this.drawPupils();
+  }
+
+  private drawPupils() {
+    this.p.push();
+    this.p.fill(0);
+    this.p.translate(this.center.copy().add(this.pupilOffset));
+    this.p.circle(0, 0, this.pupilDiameter);
+    this.p.pop();
+  }
+
+  private drawOutline() {
     this.p.push();
     this.p.beginShape();
     this.p.translate(this.center);
