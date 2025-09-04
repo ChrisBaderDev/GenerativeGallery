@@ -74,7 +74,7 @@ export class Face {
         this.p.random(-height / 20, -height / 10)
       ),
       eyebrowLength: (Math.random() * width) / 5 + width / 10,
-      pupilDiameter: (width / 10) * (Math.random() + 0.5),
+      pupilDiameter: (width / 10) + Math.random(),
       volatility: this.volatility,
       width: width / 5,
       height: height / 10,
@@ -93,7 +93,7 @@ export class Face {
         this.p.random(-height / 20, -height / 10)
       ),
       eyebrowLength: (Math.random() * width) / 5 + width / 10,
-      pupilDiameter: (width / 10) * (Math.random() + 0.5),
+      pupilDiameter: (width / 10) + Math.random(),
       volatility: this.volatility,
       width: width / 5,
       height: height / 10,

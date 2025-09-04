@@ -8,7 +8,7 @@ export interface FormOptions {
   volatility: number;
 }
 
-export class Form implements FaceComponent{
+export class Form implements FaceComponent {
   p: p5;
   center: p5.Vector;
   width: number;
@@ -45,9 +45,10 @@ export class Form implements FaceComponent{
     this.updateVertices();
     this.p.push();
     this.p.beginShape();
-    this.vertices.forEach(v => this.p.vertex(v.x, v.y));
+    this.vertices.forEach((v) => this.p.vertex(v.x, v.y));
     this.p.endShape(this.p.CLOSE);
     this.p.pop();
+    this.drawEarPositions();
     // this.drawScalp();
   }
 
@@ -56,16 +57,46 @@ export class Form implements FaceComponent{
     this.p.stroke(255, 0, 0);
     this.p.strokeWeight(10);
     this.p.beginShape();
-    this.getScalp().forEach(v => this.p.vertex(v.x, v.y));
+    this.getScalp().forEach((v) => this.p.vertex(v.x, v.y));
     this.p.endShape();
     this.p.pop();
   }
 
   getScalp(): p5.Vector[] {
     // filter vertices above the center (top half)
-    const top = this.vertices.filter(v => v.y <= this.center.y - this.height / 10);
+    const top = this.vertices.filter(
+      (v) => v.y <= this.center.y - this.height / 10
+    );
 
     // you may want to close it by connecting last → first
     return top;
+  }
+
+  drawEarPositions() {
+    const earPositions = this.getEarPositions();
+    this.p.push();
+    this.p.fill(255, 0, 0);
+    this.p.circle(earPositions.leftEar.x, earPositions.leftEar.y, 10);
+    this.p.circle(earPositions.rightEar.x, earPositions.rightEar.y, 10);
+    this.p.pop();
+  }
+
+  getEarPositions(): { leftEar: p5.Vector; rightEar: p5.Vector } {
+    const bandTop = this.center.y - this.height * 0.2;
+    const bandBottom = this.center.y + this.height * 0.2;
+
+    const earCandidates = this.vertices.filter(
+      (v) => v.y >= bandTop && v.y <= bandBottom
+    );
+
+    let leftEar = earCandidates[0];
+    let rightEar = earCandidates[0];
+
+    for (const v of earCandidates) {
+      if (v.x < leftEar.x) leftEar = v;
+      if (v.x > rightEar.x) rightEar = v;
+    }
+
+    return { leftEar, rightEar };
   }
 }
