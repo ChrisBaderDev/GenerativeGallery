@@ -1,6 +1,4 @@
 import p5 from "p5";
-import { Form } from "./Form";
-import { Eye } from "./Eye";
 import { Face } from "./Face";
 
 export default function (p: p5) {
@@ -10,8 +8,7 @@ export default function (p: p5) {
   let randomSeed = 0;
   let volatility = 2;
 
-  let faceForm: Form;
-  // called once at startup
+  // Called once during startup
   p.setup = () => {
     parent = document.getElementById("p5-container")!;
     p.createCanvas(parent!.clientWidth, parent!.clientHeight);
@@ -20,7 +17,7 @@ export default function (p: p5) {
     p.noiseSeed(noiseSeed);
   };
 
-  // called every frame
+  // Called every frame
   p.draw = () => {
     p.background(220);
     face.draw();
@@ -30,7 +27,7 @@ export default function (p: p5) {
     }
   };
 
-  // called whenever window resizes
+  // Called whenever window resizes
   p.windowResized = () => {
     p.resizeCanvas(parent!.clientWidth, parent!.clientHeight);
   };

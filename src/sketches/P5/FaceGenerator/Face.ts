@@ -16,17 +16,23 @@ export class Face {
   leftEye: Eye;
   rightEye: Eye;
 
-  constructor(p: p5, volatility: number, center: p5.Vector, width: number, height: number) {
+  constructor(
+    p: p5,
+    volatility: number,
+    center: p5.Vector,
+    width: number,
+    height: number
+  ) {
     this.p = p;
     this.volatility = volatility;
     this.components = [];
     this.width = width;
     this.height = height;
     this.center = center;
-    this.form = new Form(p, center, width, height, this.volatility);
-    this.hair = new Hair(p, 50, 10, this.volatility, this.form.getScalp());
-    this.leftEye = this.createLeftEye(width, height);
-    this.rightEye = this.createRightEye(width, height);
+    this.form = this.createForm();
+    this.hair = this.createHair();
+    this.leftEye = this.createLeftEye(this.width, this.height);
+    this.rightEye = this.createRightEye(this.width, this.height);
 
     // Add all components for common calls
     this.components.push(this.form, this.hair, this.leftEye, this.rightEye);
@@ -38,27 +44,59 @@ export class Face {
     this.p.pop();
   }
 
+  private createHair(): Hair {
+    return new Hair(this.p, {
+      length: 50,
+      density: 10,
+      volatility: this.volatility,
+      scalp: this.form.getScalp(),
+    });
+  }
+
+  private createForm(): Form {
+    return new Form(this.p, {
+      center: this.center,
+      width: this.width,
+      height: this.height,
+      volatility: this.volatility,
+    });
+  }
+
   private createLeftEye(width: number, height: number): Eye {
-    return new Eye(
-      this.p,
-      this.center.copy().add(new p5.Vector(-width / 4, -height / 8)),
-      new p5.Vector(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5),
-      width / 10 * (Math.random() + 0.5),
-      this.volatility,
-      width / 5,
-      height / 10
-    );
+    return new Eye(this.p, {
+      center: this.center.copy().add(new p5.Vector(-width / 4, -height / 8)),
+      pupilOffset: new p5.Vector(
+        Math.random() * 5 - 2.5,
+        Math.random() * 5 - 2.5
+      ),
+      eyebrowOffset: new p5.Vector(
+        this.p.random(-1, 1),
+        this.p.random(-height / 20, -height / 10)
+      ),
+      eyebrowLength: (Math.random() * width) / 5 + width / 10,
+      pupilDiameter: (width / 10) * (Math.random() + 0.5),
+      volatility: this.volatility,
+      width: width / 5,
+      height: height / 10,
+    });
   }
 
   private createRightEye(width: number, height: number): Eye {
-    return new Eye(
-      this.p,
-      this.center.copy().add(new p5.Vector(width / 4, -height / 8)),
-      new p5.Vector(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5),
-      width / 10 * (Math.random() + 0.5),
-      this.volatility,
-      width / 5,
-      height / 10
-    );
+    return new Eye(this.p, {
+      center: this.center.copy().add(new p5.Vector(this.width / 4, -this.height / 8)),
+      pupilOffset: new p5.Vector(
+        Math.random() * 5 - 2.5,
+        Math.random() * 5 - 2.5
+      ),
+      eyebrowOffset: new p5.Vector(
+        this.p.random(-1, 1),
+        this.p.random(-height / 20, -height / 10)
+      ),
+      eyebrowLength: (Math.random() * width) / 5 + width / 10,
+      pupilDiameter: (width / 10) * (Math.random() + 0.5),
+      volatility: this.volatility,
+      width: width / 5,
+      height: height / 10,
+    });
   }
 }

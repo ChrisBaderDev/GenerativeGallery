@@ -7,24 +7,25 @@ interface HairBase {
   hairLength: number;
 }
 
+export interface HairOptions {
+  length: number;
+  density: number;
+  volatility: number;
+  scalp: p5.Vector[];
+}
+
 export class Hair implements FaceComponent {
   p: p5;
   length: number;
   density: number;
-  volatilty: number;
+  volatility: number;
   hairBasis: HairBase[];
 
-  constructor(
-    p: p5,
-    length: number,
-    density: number,
-    volatility: number,
-    scalp: p5.Vector[]
-  ) {
+  constructor(p: p5, { length, density, volatility, scalp }: HairOptions) {
     this.p = p;
     this.length = length;
     this.density = density;
-    this.volatilty = volatility;
+    this.volatility = volatility;
     this.hairBasis = this.calculateHairBasis(scalp);
   }
 
@@ -33,7 +34,9 @@ export class Hair implements FaceComponent {
     this.hairBasis.forEach((basis) => {
       this.p.beginShape();
       for (let i = 0; i < this.hairBasis.length; i += 5) {
-        let pos = basis.root.copy().add(basis.direction.copy().mult(i).mult(-0.1));
+        let pos = basis.root
+          .copy()
+          .add(basis.direction.copy().mult(i).mult(-0.1));
         this.p.vertex(pos.x, pos.y);
       }
       this.p.endShape();

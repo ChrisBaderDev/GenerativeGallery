@@ -1,6 +1,13 @@
 import p5 from "p5";
 import type { FaceComponent } from "./FaceComponent";
 
+export interface FormOptions {
+  center: p5.Vector;
+  width: number;
+  height: number;
+  volatility: number;
+}
+
 export class Form implements FaceComponent{
   p: p5;
   center: p5.Vector;
@@ -9,7 +16,7 @@ export class Form implements FaceComponent{
   volatility: number;
   vertices: p5.Vector[] = [];
 
-  constructor(p: p5, center: p5.Vector, width: number, height: number, volatility: number) {
+  constructor(p: p5, { center, width, height, volatility }: FormOptions) {
     this.p = p;
     this.center = center;
     this.width = width;

@@ -1,10 +1,23 @@
 import p5 from "p5";
 import type { FaceComponent } from "./FaceComponent";
 
-export class Eye implements FaceComponent{
+interface EyeOptions {
+  center: p5.Vector;
+  pupilOffset: p5.Vector;
+  eyebrowOffset: p5.Vector;
+  eyebrowLength: number;
+  pupilDiameter: number;
+  volatility: number;
+  width: number;
+  height: number;
+}
+
+export class Eye implements FaceComponent {
   p: p5;
   center: p5.Vector;
   pupilOffset: p5.Vector;
+  eyebrowOffset: p5.Vector;
+  eyebrowLength: number;
   pupilDiameter: number;
   volatility: number;
   width: number;
@@ -12,16 +25,22 @@ export class Eye implements FaceComponent{
 
   constructor(
     p: p5,
-    center: p5.Vector,
-    pupilOffset: p5.Vector,
-    pupilDiameter: number,
-    volatility: number,
-    width: number,
-    height: number
+    {
+      center,
+      pupilOffset,
+      eyebrowOffset,
+      eyebrowLength,
+      pupilDiameter,
+      volatility,
+      width,
+      height,
+    }: EyeOptions
   ) {
     this.p = p;
     this.center = center;
     this.pupilOffset = pupilOffset;
+    this.eyebrowOffset = eyebrowOffset;
+    this.eyebrowLength = eyebrowLength;
     this.pupilDiameter = pupilDiameter;
     this.volatility = volatility;
     this.width = width;
@@ -29,6 +48,7 @@ export class Eye implements FaceComponent{
   }
 
   draw() {
+    this.drawEyebrow();
     this.drawOutline();
     this.drawPupils();
   }
@@ -38,6 +58,34 @@ export class Eye implements FaceComponent{
     this.p.fill(0);
     this.p.translate(this.center.copy().add(this.pupilOffset));
     this.p.circle(0, 0, this.pupilDiameter);
+    this.p.pop();
+  }
+
+  private drawEyebrow() {
+    this.p.push();
+    this.p.translate(this.center.copy().add(this.eyebrowOffset));
+    this.p.noFill();
+    this.p.beginShape();
+
+    const steps = 20; // number of eyebrow segments
+    for (let i = 0; i <= steps; i++) {
+      // x goes from -half length to +half length
+      let x = this.p.map(
+        i,
+        0,
+        steps,
+        -this.eyebrowLength / 2,
+        this.eyebrowLength / 2
+      );
+
+      // static noise — depends only on x + a random offset per eye
+      let n = this.p.noise(x * 0.05, this.center.y);
+      let y = this.height * 0.1 * (n - 0.5) * 2 * this.volatility;
+
+      this.p.vertex(x, y);
+    }
+
+    this.p.endShape();
     this.p.pop();
   }
 
