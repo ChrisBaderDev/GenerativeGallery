@@ -48,7 +48,7 @@ export class Form implements FaceComponent {
     this.vertices.forEach((v) => this.p.vertex(v.x, v.y));
     this.p.endShape(this.p.CLOSE);
     this.p.pop();
-    this.drawEarPositions();
+    // this.drawEarPositions();
     // this.drawScalp();
   }
 
@@ -76,27 +76,59 @@ export class Form implements FaceComponent {
     const earPositions = this.getEarPositions();
     this.p.push();
     this.p.fill(255, 0, 0);
-    this.p.circle(earPositions.leftEar.x, earPositions.leftEar.y, 10);
-    this.p.circle(earPositions.rightEar.x, earPositions.rightEar.y, 10);
+    this.p.circle(
+      earPositions.leftEarCenter.x,
+      earPositions.leftEarCenter.y,
+      10
+    );
+    this.p.circle(
+      earPositions.rightEarCenter.x,
+      earPositions.rightEarCenter.y,
+      10
+    );
+    this.p.circle(
+      earPositions.leftEarTop.x,
+      earPositions.leftEarTop.y,
+      10
+    );
+    this.p.circle(
+      earPositions.rightEarTop.x,
+      earPositions.rightEarTop.y,
+      10
+    );
+    this.p.circle(
+      earPositions.leftEarBottom.x,
+      earPositions.leftEarBottom.y,
+      10
+    );
+    this.p.circle(
+      earPositions.rightEarBottom.x,
+      earPositions.rightEarBottom.y,
+      10
+    );
     this.p.pop();
   }
 
-  getEarPositions(): { leftEar: p5.Vector; rightEar: p5.Vector } {
-    const bandTop = this.center.y - this.height * 0.2;
-    const bandBottom = this.center.y + this.height * 0.2;
+  getVertexAtFraction(f: number): p5.Vector {
+    const idx = Math.floor(this.vertices.length * f) % this.vertices.length;
+    return this.vertices[idx];
+  }
 
-    const earCandidates = this.vertices.filter(
-      (v) => v.y >= bandTop && v.y <= bandBottom
-    );
-
-    let leftEar = earCandidates[0];
-    let rightEar = earCandidates[0];
-
-    for (const v of earCandidates) {
-      if (v.x < leftEar.x) leftEar = v;
-      if (v.x > rightEar.x) rightEar = v;
-    }
-
-    return { leftEar, rightEar };
+  getEarPositions(): {
+    leftEarCenter: p5.Vector;
+    leftEarTop: p5.Vector;
+    leftEarBottom: p5.Vector;
+    rightEarCenter: p5.Vector;
+    rightEarTop: p5.Vector;
+    rightEarBottom: p5.Vector;
+  } {
+    return {
+      leftEarCenter: this.getVertexAtFraction(0.5),
+      leftEarTop: this.getVertexAtFraction(0.52),
+      leftEarBottom: this.getVertexAtFraction(0.485),
+      rightEarCenter: this.getVertexAtFraction(0.0),
+      rightEarTop: this.getVertexAtFraction(0.02),
+      rightEarBottom: this.getVertexAtFraction(0.985),
+    };
   }
 }
